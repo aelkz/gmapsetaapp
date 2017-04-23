@@ -1,0 +1,92 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="gmapsetaapp:war exploded">
+    <output-path>$PROJECT_DIR$/target/gmaps-eta-app-1.0-SNAPSHOT</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="gmapsetaapp" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:1.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:1.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:1.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.11" />
+          <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.11" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.3" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.3" />
+          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.14" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.4.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.5" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:5.1.3.Final" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.3.GA" />
+          <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.0.0" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-data-mongodb:1.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongo-java-driver:2.12.5" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-mongodb:1.6.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.9.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.11" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.11" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.10.2" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-java:3.3.1" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:3.3.1" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-remote-driver:3.3.1" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-api:3.3.1" />
+          <element id="library" level="project" name="Maven: cglib:cglib-nodep:3.2.4" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-exec:1.3" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.3.1" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:21.0" />
+          <element id="library" level="project" name="Maven: net.java.dev.jna:jna-platform:4.1.0" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-edge-driver:3.3.1" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-firefox-driver:3.3.1" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-ie-driver:3.3.1" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-opera-driver:3.3.1" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-safari-driver:3.3.1" />
+          <element id="library" level="project" name="Maven: com.codeborne:phantomjsdriver:1.4.0" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:htmlunit-driver:2.24" />
+          <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-support:3.4.0" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+          <element id="library" level="project" name="Maven: net.java.dev.jna:jna:4.1.0" />
+          <element id="library" level="project" name="Maven: junit:junit:4.12" />
+          <element id="library" level="project" name="Maven: net.sourceforge.htmlunit:htmlunit:2.24" />
+          <element id="library" level="project" name="Maven: xalan:xalan:2.7.2" />
+          <element id="library" level="project" name="Maven: xalan:serializer:2.7.2" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.5" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.3.6" />
+          <element id="library" level="project" name="Maven: net.sourceforge.htmlunit:htmlunit-core-js:2.23" />
+          <element id="library" level="project" name="Maven: net.sourceforge.htmlunit:neko-htmlunit:2.24" />
+          <element id="library" level="project" name="Maven: xerces:xercesImpl:2.11.0" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.4.01" />
+          <element id="library" level="project" name="Maven: net.sourceforge.cssparser:cssparser:0.9.21" />
+          <element id="library" level="project" name="Maven: org.w3c.css:sac:1.3" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.5" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty.websocket:websocket-client:9.2.20.v20161216" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-util:9.2.9.v20150224" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-io:9.2.9.v20150224" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty.websocket:websocket-common:9.2.20.v20161216" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty.websocket:websocket-api:9.2.20.v20161216" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/gmaps-eta-app-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="gmapsetaapp/web/Web" />
+    </root>
+  </artifact>
+</component>
