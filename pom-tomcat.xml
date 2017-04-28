@@ -15,6 +15,8 @@
     <groupId>com.github.aelkz</groupId>
     <artifactId>gmaps-eta-app</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!-- will package into war file (web server/tomcat) -->
+    <packaging>war</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -27,6 +29,18 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <!-- will package into war file (web server/tomcat) -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- To build an executable war use one of the profiles below -->
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -52,5 +66,30 @@
             <version>4.5.3</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>tomcat</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>

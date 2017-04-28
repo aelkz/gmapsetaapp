@@ -77,4 +77,11 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
 
         return null;
     }
+
+    @Override
+    @RequestMapping(method = RequestMethod.GET)
+    public Info findTraffic(@RequestParam String id, @RequestParam String location) {
+        return null;
+    }
+
 }
