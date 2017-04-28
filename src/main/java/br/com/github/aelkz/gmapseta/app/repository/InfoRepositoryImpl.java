@@ -50,6 +50,7 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
         // \------------------------------------------------/
         HtmlUnitDriver driver = null;
         try {
+            System.out.println("info: trying to get information for route #"+route.getId());
             driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_45);
             driver.setJavascriptEnabled(true);
             Wait<WebDriver> wait;
@@ -58,9 +59,6 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
             wait = new WebDriverWait(driver, 30);
             driver.get(route.getRouteUrl());
 
-            System.out.println(route.getDescription());
-            System.out.println(String.valueOf(route.getKilometersAsText()));
-
             String content = driver.getPageSource();
             int start = content.indexOf(route.getKilometersAsText());
             int end = start+350;
@@ -68,11 +66,9 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
 
             Info info = new Info.Builder(content,route).build();
 
-            System.out.println(info.getArriveTime());
-            System.out.println(info.getTrafficTime());
-
             return info;
         } catch(Exception e) {
+            System.out.println("exception: trying to get information for route #"+route.getId());
             e.printStackTrace();
         } finally {
             if (driver != null)
