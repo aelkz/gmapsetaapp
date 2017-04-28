@@ -49,6 +49,9 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
         // | Acquire html with browser rendering            |
         // \------------------------------------------------/
         HtmlUnitDriver driver = null;
+        String content = null;
+        int start=0,end=0;
+
         try {
             System.out.println("info: trying to get information for route #"+route.getId());
             driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_45);
@@ -59,9 +62,9 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
             wait = new WebDriverWait(driver, 30);
             driver.get(route.getRouteUrl());
 
-            String content = driver.getPageSource();
-            int start = content.indexOf(route.getKilometersAsText());
-            int end = start+350;
+            content = driver.getPageSource();
+            start = content.indexOf(route.getKilometersAsText());
+            end = start+350;
             content = content.substring(start,end);
 
             Info info = new Info.Builder(content,route).build();
@@ -69,6 +72,12 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
             return info;
         } catch(Exception e) {
             System.out.println("exception: trying to get information for route #"+route.getId());
+            if (content != null) {
+                System.out.println("content.length:"+content.length());
+                System.out.println("start:"+start);
+                System.out.println("end:"+end);
+            }
+            System.out.println();
             e.printStackTrace();
         } finally {
             if (driver != null)
