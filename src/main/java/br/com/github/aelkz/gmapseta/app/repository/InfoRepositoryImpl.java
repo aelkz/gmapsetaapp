@@ -1,6 +1,7 @@
 package br.com.github.aelkz.gmapseta.app.repository;
 
 import br.com.github.aelkz.gmapseta.app.model.Info;
+import br.com.github.aelkz.gmapseta.app.util.PageSourceUtil;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -63,7 +64,7 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
             driver.get(route.getRouteUrl());
 
             content = driver.getPageSource();
-            start = content.indexOf(route.getKilometersAsText());
+            start = PageSourceUtil.getStartIndex(content,route.getKilometers());
             end = start+350;
             content = content.substring(start,end);
 
@@ -71,6 +72,7 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
 
             return info;
         } catch(Exception e) {
+            // TODO - change to use a log system
             System.out.println("exception: trying to get information for route #"+route.getId());
             if (content != null) {
                 System.out.println("content.length:"+content.length());

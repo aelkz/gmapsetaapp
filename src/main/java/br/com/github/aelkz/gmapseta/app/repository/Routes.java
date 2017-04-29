@@ -71,11 +71,6 @@ public enum Routes {
         this.endingPoint = endingPoint;
     }
 
-    public String getKilometersAsText() {
-        String text = String.valueOf(getKilometers())+" km";
-        return text.replace('.',',');
-    }
-
     public static String getURL(String id) {
         String routeID = null;
         for (Routes route: Routes.values()) {
