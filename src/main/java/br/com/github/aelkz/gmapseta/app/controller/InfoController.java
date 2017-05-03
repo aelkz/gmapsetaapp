@@ -17,9 +17,14 @@ public class InfoController {
         return infoRepository.findTraffic(routeId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{routeId}/{location}")
-    public Info getRouteTrafficData(@PathVariable("routeId") String routeId, @MatrixVariable("location") String location){
+    @RequestMapping(method = RequestMethod.GET, value="/{routeId}/{userLocation}")
+    public Info getRouteTrafficData(@PathVariable("routeId") String routeId, @MatrixVariable("userLocation") String location){
         return infoRepository.findTraffic(routeId);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value="/best/{origin}")
+    public Info getBestRoute(@PathVariable("origin") Integer origin){
+        return infoRepository.findBestRoute(origin);
     }
 
 }

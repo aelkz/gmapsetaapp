@@ -1,8 +1,11 @@
 package br.com.github.aelkz.gmapseta.app.model;
 
-import br.com.github.aelkz.gmapseta.app.repository.Routes;
+import br.com.github.aelkz.gmapseta.app.repository.Point;
+import br.com.github.aelkz.gmapseta.app.repository.Route;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +17,8 @@ public class Info {
     private String description;
     private Double kilometers;
     private String routeUrl;
-    private String startingPoint;
-    private String endindPoint;
+    private Point startingPoint;
+    private Point endindPoint;
 
     // traffic
     private String arriveTime;
@@ -24,7 +27,7 @@ public class Info {
     public Info() {
     }
 
-    public Info(Long id, String name, String description, Double kilometers, String routeUrl, String arriveTime, String trafficTime, String startingPoint, String endindPoint) {
+    public Info(Long id, String name, String description, Double kilometers, String routeUrl, String arriveTime, String trafficTime, Point startingPoint, Point endindPoint) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -82,15 +85,20 @@ public class Info {
 
     public String getTrafficTime() { return trafficTime; }
 
+    @JsonIgnore
+    public BigDecimal getTraffic() {
+        return new BigDecimal(getTrafficTime().replace(" min","").trim());
+    }
+
     public void setTrafficTime(String trafficTime) { this.trafficTime = trafficTime; }
 
-    public String getStartingPoint() { return startingPoint; }
+    public Point getStartingPoint() { return startingPoint; }
 
-    public void setStartingPoint(String startingPoint) { this.startingPoint = startingPoint; }
+    public void setStartingPoint(Point startingPoint) { this.startingPoint = startingPoint; }
 
-    public String getEndindPoint() { return endindPoint; }
+    public Point getEndindPoint() { return endindPoint; }
 
-    public void setEndindPoint(String endindPoint) { this.endindPoint = endindPoint; }
+    public void setEndindPoint(Point endindPoint) { this.endindPoint = endindPoint; }
 
     @Override
     public boolean equals(Object o) {
@@ -118,9 +126,9 @@ public class Info {
 
     public static class Builder {
         private String source;
-        private Routes route;
+        private Route route;
 
-        public Builder(String source, Routes route) {
+        public Builder(String source, Route route) {
             this.source = source;
             this.route = route;
         }
@@ -139,6 +147,23 @@ public class Info {
                 values[1] = m.group(3);
             }
             return values;
+        }
+
+        public Info empty() {
+            Info info = new Info();
+
+            info.setDescription("");
+            info.setId(0L);
+            info.setKilometers(9999.0);
+            info.setName("");
+            info.setRouteUrl("");
+            info.setStartingPoint(Point.EMPTY);
+            info.setEndindPoint(Point.EMPTY);
+
+            info.setTrafficTime("9999 min");
+            info.setArriveTime("9999 min");
+
+            return info;
         }
 
         public Info build() {
