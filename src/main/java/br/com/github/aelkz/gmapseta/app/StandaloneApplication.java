@@ -2,8 +2,6 @@ package br.com.github.aelkz.gmapseta.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 // /------------------------------------------------\
 // | 1- SpringBoot deployable war file config.      |
@@ -11,15 +9,10 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 // | Application deployed into web server (tomcat)  |
 // \------------------------------------------------/
 
-//@SpringBootApplication
-public class Application extends SpringBootServletInitializer {
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(Application.class);
-    }
+@SpringBootApplication
+public class StandaloneApplication {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(new Object[] { Application.class }, args);
+        SpringApplication.run(new Object[] { StandaloneApplication.class }, args);
     }
 }
