@@ -3,8 +3,10 @@ package br.com.github.aelkz.gmapseta.app.repository;
 import br.com.github.aelkz.gmapseta.app.model.Info;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ScriptException;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -62,7 +64,7 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
         };
 
         try {
-            LOGGER.info("trying to get information for route #"+route.getId());
+            LOGGER.info("trying to get information for route #" + route.getId());
             Wait<WebDriver> wait;
 
             driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_45);
@@ -77,12 +79,15 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
 
             String content = driver.getPageSource();
             int start = content.indexOf(route.getKilometersAsText());
-            int end = start+350;
-            content = content.substring(start,end);
+            int end = start + 350;
+            content = content.substring(start, end);
 
-            Info info = new Info.Builder(content,route).build();
+            Info info = new Info.Builder(content, route).build();
 
             return info;
+        } catch(WebDriverException e) {
+            LOGGER.severe("driver.exception: trying to get information for route #"+route.getId());
+            LOGGER.severe("driver.exception.message: "+e.getMessage());
         } catch(ScriptException e) {
             // trying to get rid off scripting exceptions
             LOGGER.severe("script.exception: trying to get information for route #"+route.getId());
@@ -107,6 +112,12 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
     }
 
     @Override
+    // /------------------------------------------------\
+    // | findBestRoute method                           |
+    // |------------------------------------------------|
+    // | Try to acquire the best route with better      |
+    // | traffic and distance conditions                |
+    // \------------------------------------------------/
     public Info findBestRoute(Integer origin) {
         Info bestInfo = new Info.Builder(null,null).empty();
         Info currentInfo = null;

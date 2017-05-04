@@ -11,7 +11,7 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 // | Application deployed into web server (tomcat)  |
 // \------------------------------------------------/
 
-//@SpringBootApplication
+@SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
     @Override

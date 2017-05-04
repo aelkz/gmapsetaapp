@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // | Application deployed into web server (tomcat)  |
 // \------------------------------------------------/
 
-@SpringBootApplication
+//@SpringBootApplication
 public class StandaloneApplication {
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(new Object[] { StandaloneApplication.class }, args);
-    }
+    //public static void main(String[] args) throws Exception {
+    //    SpringApplication.run(new Object[] { StandaloneApplication.class }, args);
+    //}
 }
