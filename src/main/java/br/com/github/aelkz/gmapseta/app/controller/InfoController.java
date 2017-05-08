@@ -36,11 +36,6 @@ public class InfoController {
     }
 
     // --------
-    // weather: cptec
-    // --------
-    // http://www.cptec.inpe.br/cidades/tempo/224
-
-    // --------
     // weather: accuweather
     // --------
     // http://apidev.accuweather.com/developers
@@ -51,35 +46,20 @@ public class InfoController {
     // https://openweathermap.org/current
     // 5b1502a400dd04ec17bf12a972c96c70
     // http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID={APIKEY}
-    // http://api.openweathermap.org/data/2.5/weather?id=3447466&appid=5b1502a400dd04ec17bf12a972c96c70
+    // http://api.openweathermap.org/data/2.5/weather?id=3447466&units=metric&appid=5b1502a400dd04ec17bf12a972c96c70
 
     /*
-      {
-        "id": 3469058,
-        "name": "Brasilia",
-        "country": "BR",
-        "coord": {
-          "lon": -47.929722,
-          "lat": -15.77972
-        }
-      {
-        "id": 3447466,
-        "name": "Sobradinho",
-        "country": "BR",
-        "coord": {
-          "lon": -53.02861,
-          "lat": -29.421391
-        }
-    {
-        "id": 3447473,
-        "name": "Sobradinho",
-        "country": "BR",
-        "coord": {
-          "lon": -39.099998,
-          "lat": -12.83333
-        }
-    },
-     */
+    "id": 3469058,
+    "name": "Brasilia",
+    "country": "BR",
+    "coord": { "lon": -47.929722,"lat": -15.77972
 
+    "id": 3447473,
+    "name": "Sobradinho",
+    "country": "BR",
+    "coord": { "lon": -39.099998, "lat": -12.83333 }
+    // -15.6531/-47.7914
+    // http://api.openweathermap.org/data/2.5/weather?units=metric&lat=47.7914&lon=15.6531&appid=5b1502a400dd04ec17bf12a972c96c70
+     */
 
 }
