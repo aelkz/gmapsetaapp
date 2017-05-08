@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -128,6 +130,15 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
         }
 
         return bestInfo;
+    }
+
+    @Override
+    public List<Info> findAllTraffic(Integer origin) {
+        List<Info> all = new ArrayList<>();
+        for (Route route: Route.getRoutesBy(Point.getPoint(origin))) {
+            all.add(findTraffic(String.valueOf(route.getId())));
+        }
+        return all;
     }
 
 }
