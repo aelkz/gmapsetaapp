@@ -1,13 +1,14 @@
-package br.com.github.aelkz.gmapseta.app.repository;
+package br.com.github.aelkz.gmapseta.app.repository.status;
 
 import br.com.github.aelkz.gmapseta.app.model.Info;
+import br.com.github.aelkz.gmapseta.app.model.Status;
+import br.com.github.aelkz.gmapseta.app.repository.Point;
+import br.com.github.aelkz.gmapseta.app.repository.Route;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ScriptException;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,30 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-public class InfoRepositoryImpl implements InfoRepositoryCustom {
+public class StatusRepositoryImpl implements StatusRepositoryCustom {
 
-    private final Logger LOGGER = Logger.getLogger(InfoRepositoryImpl.class.getName());
+    private final Logger LOGGER = Logger.getLogger(StatusRepositoryImpl.class.getName());
 
     @Override
     @RequestMapping(method = RequestMethod.GET)
-    public Info findTraffic(@RequestParam String id) {
+    public Status findStatus(@RequestParam String id) {
         Route route = Route.getRoute(id);
-
-        // /------------------------------------------------\
-        // | 1- Jsoup method                                |
-        // |------------------------------------------------|
-        // | Acquire html without browser rendering (raw)   |
-        // \------------------------------------------------/
-        //Document doc = null;
-        //try {
-            //doc = Jsoup.connect(route.getRouteUrl()).userAgent("Mozilla/5.0").timeout(30000).get();
-            //System.out.println("url: "+route.getRouteUrl());
-            //System.out.println(doc.body().outerHtml());
-            //System.out.println(doc.body().html());
-        //} catch (IOException e) {
-            //e.printStackTrace();
-        //}
 
         // /------------------------------------------------\
         // | 2- Selenium HtmlUnit Driver method             |
@@ -49,16 +36,6 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
         // | Acquire html with browser rendering            |
         // \------------------------------------------------/
         HtmlUnitDriver driver = null;
-
-        // http://www.seleniumhq.org/docs/04_webdriver_advanced.jsp
-        // At first this method will not be used, because the page will not be fully loaded.
-        ExpectedCondition<Boolean> javascriptLoad = new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                // javascript:console.log(document.readyState);
-                return ((JavascriptExecutor)driver).executeScript("return document.readyState").toString().equals("complete");
-            }
-        };
 
         try {
             LOGGER.info("trying to get information for route #" + route.getId());
@@ -72,16 +49,31 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
             driver.get(route.getRouteUrl());
 
             wait = new WebDriverWait(driver, 5);
-            //wait.until(javascriptLoad);
+
+            // /------------------------------------------------\
+            // | 1-acquire traffic data from gmaps html source  |
+            // \------------------------------------------------/
 
             String content = driver.getPageSource();
             int start = content.indexOf(route.getKilometersAsText());
             int end = start + 350;
             content = content.substring(start, end);
 
+            // use the info builder (to not replicate code)
             Info info = new Info.Builder(content, route).build();
 
-            return info;
+            Status status = Status.from(info);
+
+            // /------------------------------------------------\
+            // | 2-calculate fill percent value + color         |
+            // \------------------------------------------------/
+
+            // 2.1 get the arrival time (to get the best traffic time scenario)
+            // 2.2 calculate the traffic scenarios (best <= (arrivalTime + 2min), good <= (best + 3 min), average <= (good + 10 min), worst >= ( average + 1 min))
+            // 2.3 sets the color based on traffic scenarios above (best = #B2C831, good = #FFC90E, average = #FF7F27, worst = #FA1D2D)
+
+
+            return status;
         } catch(WebDriverException e) {
             LOGGER.severe("driver.exception: trying to get information for route #"+route.getId());
             LOGGER.severe("driver.exception.message: "+e.getMessage());
@@ -103,42 +95,38 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
-    public Info findTraffic(@RequestParam String id, @RequestParam String location) {
-        return null;
-    }
-
-    @Override
     // /------------------------------------------------\
-    // | findBestRoute method                           |
+    // | findAll method                                 |
     // |------------------------------------------------|
     // | Try to acquire the best route with better      |
-    // | traffic and distance conditions                |
+    // | traffic and distance conditions plus all other |
+    // | routes with the same origin                    |
     // \------------------------------------------------/
-    public Info findBestRoute(Integer origin) {
-        Info bestInfo = new Info.Builder(null,null).empty();
-        Info currentInfo = null;
+    public List<Status> findAll(Integer origin) {
+        Status bestStatus = Status.from(new Info.Builder(null,null).empty());
+        Status currentStatus = null;
 
         int comparison = 0;
 
+        List<Status> all = new ArrayList<>();
+        List<Status> allFiltered = new ArrayList<>();
+
         for (Route route: Route.getRoutesBy(Point.getPoint(origin))) {
-            currentInfo = findTraffic(String.valueOf(route.getId()));
-            comparison = bestInfo.getTraffic().compareTo(currentInfo.getTraffic());
+            currentStatus = findStatus(String.valueOf(route.getId()));
+            comparison = bestStatus.getTraffic().compareTo(currentStatus.getTraffic());
             if (comparison == 1) {
-                bestInfo = currentInfo;
+                bestStatus = currentStatus;
             }
+            all.add(currentStatus);
         }
 
-        return bestInfo;
-    }
+        final Long bestId = bestStatus.getId();
+        bestStatus.setSelected(true);
 
-    @Override
-    public List<Info> findAllTraffic(Integer origin) {
-        List<Info> all = new ArrayList<>();
-        for (Route route: Route.getRoutesBy(Point.getPoint(origin))) {
-            all.add(findTraffic(String.valueOf(route.getId())));
-        }
-        return all;
+        allFiltered = all.stream().filter(e -> !e.getId().equals(bestId)).collect(Collectors.toList());
+        allFiltered.add(bestStatus); // add the best route to the return list
+
+        return allFiltered;
     }
 
 }

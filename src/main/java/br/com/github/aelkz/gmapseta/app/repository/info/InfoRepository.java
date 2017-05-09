@@ -1,4 +1,4 @@
-package br.com.github.aelkz.gmapseta.app.repository;
+package br.com.github.aelkz.gmapseta.app.repository.info;
 
 import br.com.github.aelkz.gmapseta.app.model.Info;
 import org.springframework.data.mongodb.repository.MongoRepository;

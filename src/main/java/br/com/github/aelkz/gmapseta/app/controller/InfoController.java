@@ -1,7 +1,9 @@
 package br.com.github.aelkz.gmapseta.app.controller;
 
 import br.com.github.aelkz.gmapseta.app.model.Info;
-import br.com.github.aelkz.gmapseta.app.repository.InfoRepository;
+import br.com.github.aelkz.gmapseta.app.model.Status;
+import br.com.github.aelkz.gmapseta.app.repository.info.InfoRepository;
+import br.com.github.aelkz.gmapseta.app.repository.status.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,9 @@ public class InfoController {
     @Autowired
     private InfoRepository infoRepository;
 
+    @Autowired
+    private StatusRepository statusRepository;
+
     @RequestMapping(method = RequestMethod.GET, value="/{routeId}")
     public Info getRouteTrafficData(@PathVariable("routeId") String routeId){
         return infoRepository.findTraffic(routeId);
@@ -26,8 +31,8 @@ public class InfoController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/status/{origin}")
-    public List<Info> getRouteStatus(@PathVariable("origin") Integer origin){
-        return infoRepository.findAllTraffic(origin);
+    public List<Status> getRouteStatus(@PathVariable("origin") Integer origin){
+        return statusRepository.findAll(origin);
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/best/{origin}")
