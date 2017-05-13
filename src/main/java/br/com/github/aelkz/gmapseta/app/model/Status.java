@@ -14,20 +14,22 @@ public class Status {
     private Double kilometers;
     private Point startingPoint;
     private Point endindPoint;
+    private String arrivalTime;
     private String trafficTime;
     private Boolean selected;
     private String color;
-    private BigDecimal fillPercent;
+    private String fillPercent;
 
     public Status() {
     }
 
-    public Status(Long id, String name, Double kilometers, Point startingPoint, Point endindPoint, String trafficTime, Boolean selected, String color, BigDecimal fillPercent) {
+    public Status(Long id, String name, Double kilometers, Point startingPoint, Point endindPoint, String arrivalTime, String trafficTime, Boolean selected, String color, String fillPercent) {
         this.id = id;
         this.name = name;
         this.kilometers = kilometers;
         this.startingPoint = startingPoint;
         this.endindPoint = endindPoint;
+        this.arrivalTime = arrivalTime;
         this.trafficTime = trafficTime;
         this.selected = selected;
         this.color = color;
@@ -41,6 +43,7 @@ public class Status {
         status.setKilometers(info.getKilometers());
         status.setStartingPoint(info.getStartingPoint());
         status.setEndindPoint(info.getEndindPoint());
+        status.setArrivalTime(info.getArriveTime());
         status.setTrafficTime(info.getTrafficTime());
         return status;
     }
@@ -72,11 +75,20 @@ public class Status {
     public String getTrafficTime() { return trafficTime; }
 
     @JsonIgnore
+    public BigDecimal getNoTraffic() {
+        return new BigDecimal(getArrivalTime().replace(" min","").trim());
+    }
+
+    @JsonIgnore
     public BigDecimal getTraffic() {
         return new BigDecimal(getTrafficTime().replace(" min","").trim());
     }
 
     public void setTrafficTime(String trafficTime) { this.trafficTime = trafficTime; }
+
+    public String getArrivalTime() { return arrivalTime; }
+
+    public void setArrivalTime(String arrivalTime) { this.arrivalTime = arrivalTime; }
 
     public Point getStartingPoint() { return startingPoint; }
 
@@ -94,9 +106,9 @@ public class Status {
 
     public void setColor(String color) { this.color = color; }
 
-    public BigDecimal getFillPercent() { return fillPercent; }
+    public String getFillPercent() { return fillPercent; }
 
-    public void setFillPercent(BigDecimal fillPercent) { this.fillPercent = fillPercent; }
+    public void setFillPercent(String fillPercent) { this.fillPercent = fillPercent; }
 
     @Override
     public boolean equals(Object o) {

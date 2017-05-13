@@ -2,8 +2,10 @@ package br.com.github.aelkz.gmapseta.app.repository.status;
 
 import br.com.github.aelkz.gmapseta.app.model.Info;
 import br.com.github.aelkz.gmapseta.app.model.Status;
+import br.com.github.aelkz.gmapseta.app.repository.Condition;
 import br.com.github.aelkz.gmapseta.app.repository.Point;
 import br.com.github.aelkz.gmapseta.app.repository.Route;
+import br.com.github.aelkz.gmapseta.app.util.TrafficStatusUtil;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import org.openqa.selenium.WebDriver;
@@ -72,6 +74,9 @@ public class StatusRepositoryImpl implements StatusRepositoryCustom {
             // 2.2 calculate the traffic scenarios (best <= (arrivalTime + 2min), good <= (best + 3 min), average <= (good + 10 min), worst >= ( average + 1 min))
             // 2.3 sets the color based on traffic scenarios above (best = #B2C831, good = #FFC90E, average = #FF7F27, worst = #FA1D2D)
 
+            Condition condition = TrafficStatusUtil.calculateTrafficCondition(status);
+            status.setColor(condition.getHexaColor());
+            status.setFillPercent(condition.getFillPercent());
 
             return status;
         } catch(WebDriverException e) {
@@ -113,6 +118,8 @@ public class StatusRepositoryImpl implements StatusRepositoryCustom {
 
         for (Route route: Route.getRoutesBy(Point.getPoint(origin))) {
             currentStatus = findStatus(String.valueOf(route.getId()));
+            currentStatus.setSelected(false);
+
             comparison = bestStatus.getTraffic().compareTo(currentStatus.getTraffic());
             if (comparison == 1) {
                 bestStatus = currentStatus;
