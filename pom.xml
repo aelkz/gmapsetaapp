@@ -13,7 +13,7 @@
     </organization>
 
     <groupId>com.github.aelkz</groupId>
-    <artifactId>gmaps-eta-app</artifactId>
+    <artifactId>gmapseta-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <!-- will package into war file (web server/tomcat) -->
     <packaging>war</packaging>
