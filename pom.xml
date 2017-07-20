@@ -14,7 +14,7 @@
 
     <groupId>com.github.aelkz</groupId>
     <artifactId>gmapseta-api</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1</version>
     <!-- will package into war file (web server/tomcat) -->
     <packaging>war</packaging>
 
@@ -87,6 +87,15 @@
             <artifactId>guava</artifactId>
             <version>21.0</version>
         </dependency>
+
+        <!-- springboot actuator -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>1.5.4.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <build>
