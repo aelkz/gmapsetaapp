@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="gmapsetaapp:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="gmaps-eta-app-1.0-SNAPSHOT.war">
+    <root id="archive" name="gmapseta-api-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="gmapsetaapp:war exploded" />
     </root>
   </artifact>

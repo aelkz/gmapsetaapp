@@ -41,7 +41,7 @@ public enum Point {
 
     public static Point getPoint(Integer id) {
         for (Point point: Point.values()) {
-            if (point.getId().intValue() == id) {
+            if (point.getId().intValue() == id.intValue()) {
                 return point;
             }
         }

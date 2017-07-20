@@ -123,7 +123,11 @@ public class InfoRepositoryImpl implements InfoRepositoryCustom {
 
         int comparison = 0;
 
+        LOGGER.info("selected point: "+Point.getPoint(origin).getDescription());
+        LOGGER.info("selected routes: "+Route.getRoutesBy(Point.getPoint(origin)).size());
+
         for (Route route: Route.getRoutesBy(Point.getPoint(origin))) {
+            LOGGER.info("analysing route #" + route.getId());
             currentInfo = findTraffic(String.valueOf(route.getId()));
             comparison = bestInfo.getTraffic().compareTo(currentInfo.getTraffic());
             if (comparison == 1) {
